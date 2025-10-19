@@ -200,7 +200,7 @@ const Index = () => {
               <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icon name="MapPin" size={32} className="text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Вся Москва</h3>
+              <h3 className="text-2xl font-bold mb-3">Весь ульяновск</h3>
               <p className="text-muted-foreground">Доставляем в пределах МКАД</p>
             </Card>
           </div>
