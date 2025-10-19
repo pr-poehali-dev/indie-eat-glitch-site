@@ -280,7 +280,7 @@ const Index = () => {
                   <div>
                     <h4 className="font-bold text-lg mb-2">Телефон</h4>
                     <p className="text-muted-foreground">+7 (915) 405-72-33</p>
-                    <p className="text-sm text-muted-foreground mt-1">Ежедневно с 10:00 до 23:00</p>
+                    <p className="text-sm text-muted-foreground mt-1">Ежедневно с 9:00 до 21:00</p>
                   </div>
                 </div>
               </Card>
