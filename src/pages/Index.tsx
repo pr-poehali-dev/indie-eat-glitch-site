@@ -97,6 +97,8 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
         <div className="absolute top-20 left-10 w-64 h-64 bg-primary/20 rounded-full blur-[100px]" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-[120px]" />
+        <img src="https://cdn.poehali.dev/files/58096693-f9cc-4536-b6e8-ba2ed4cdb6ef.png" alt="" className="absolute top-32 right-20 w-32 h-auto opacity-60 animate-pulse pointer-events-none" />
+        <img src="https://cdn.poehali.dev/files/2513c132-a318-412f-9cb6-78a29eab9269.jpeg" alt="" className="absolute bottom-32 left-16 w-16 h-auto opacity-40 rotate-45 pointer-events-none" />
         
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-4xl mx-auto">
@@ -130,6 +132,8 @@ const Index = () => {
       </section>
 
       <section id="menu" className="py-20 relative">
+        <img src="https://cdn.poehali.dev/files/da2b9ac6-883f-43ae-a6e9-d6a22ee4bf00.jpg" alt="" className="absolute top-10 left-10 w-48 h-auto opacity-30 pointer-events-none" />
+        <img src="https://cdn.poehali.dev/files/2513c132-a318-412f-9cb6-78a29eab9269.jpeg" alt="" className="absolute top-20 right-16 w-20 h-auto opacity-50 -rotate-12 pointer-events-none" />
         <div className="container mx-auto px-4">
           <h2 className="text-5xl md:text-6xl font-bold mb-4 text-center glitch" data-text="МЕНЮ">
             МЕНЮ
@@ -170,7 +174,9 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="delivery" className="py-20 bg-muted/30">
+      <section id="delivery" className="py-20 bg-muted/30 relative">
+        <img src="https://cdn.poehali.dev/files/58096693-f9cc-4536-b6e8-ba2ed4cdb6ef.png" alt="" className="absolute bottom-20 right-10 w-40 h-auto opacity-40 animate-pulse pointer-events-none" />
+        <img src="https://cdn.poehali.dev/files/2513c132-a318-412f-9cb6-78a29eab9269.jpeg" alt="" className="absolute top-10 left-1/4 w-12 h-auto opacity-30 rotate-90 pointer-events-none" />
         <div className="container mx-auto px-4">
           <h2 className="text-5xl md:text-6xl font-bold mb-4 text-center glitch" data-text="ДОСТАВКА">
             ДОСТАВКА
@@ -225,7 +231,9 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="contacts" className="py-20">
+      <section id="contacts" className="py-20 relative">
+        <img src="https://cdn.poehali.dev/files/da2b9ac6-883f-43ae-a6e9-d6a22ee4bf00.jpg" alt="" className="absolute top-1/2 right-10 w-56 h-auto opacity-20 -translate-y-1/2 pointer-events-none" />
+        <img src="https://cdn.poehali.dev/files/58096693-f9cc-4536-b6e8-ba2ed4cdb6ef.png" alt="" className="absolute bottom-10 left-20 w-24 h-auto opacity-50 pointer-events-none" />
         <div className="container mx-auto px-4">
           <h2 className="text-5xl md:text-6xl font-bold mb-4 text-center glitch" data-text="КОНТАКТЫ">
             КОНТАКТЫ
@@ -324,7 +332,8 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="bg-muted/30 border-t border-primary/20 py-8">
+      <footer className="bg-muted/30 border-t border-primary/20 py-8 relative">
+        <img src="https://cdn.poehali.dev/files/2513c132-a318-412f-9cb6-78a29eab9269.jpeg" alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-auto opacity-20 pointer-events-none" />
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-2xl font-bold text-primary mb-2 glitch" data-text="INDIE EAT">
             INDIE EAT
