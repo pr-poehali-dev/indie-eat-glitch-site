@@ -4,6 +4,16 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import Icon from '@/components/ui/icon';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
 
 const menuItems = [
   {
@@ -56,12 +66,68 @@ const menuItems = [
   }
 ];
 
+interface CartItem {
+  id: number;
+  name: string;
+  price: string;
+  quantity: number;
+  image: string;
+}
+
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { toast } = useToast();
 
   const scrollToSection = (section: string) => {
     setActiveSection(section);
     document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const addToCart = (item: typeof menuItems[0]) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
+      if (existingItem) {
+        return prevCart.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
+      }
+      return [...prevCart, { ...item, quantity: 1 }];
+    });
+    toast({
+      title: 'Добавлено в корзину',
+      description: `${item.name} добавлен в корзину`,
+    });
+  };
+
+  const removeFromCart = (id: number) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  };
+
+  const updateQuantity = (id: number, change: number) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === id
+            ? { ...item, quantity: Math.max(0, item.quantity + change) }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
+  const getTotalPrice = () => {
+    return cart.reduce((total, item) => {
+      const price = parseInt(item.price.replace('₽', ''));
+      return total + price * item.quantity;
+    }, 0);
+  };
+
+  const getTotalItems = () => {
+    return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
   return (
@@ -85,10 +151,80 @@ const Index = () => {
                 </button>
               ))}
             </div>
-            <Button className="bg-primary hover:bg-primary/90">
-              <Icon name="ShoppingCart" size={20} className="mr-2" />
-              Корзина
-            </Button>
+            <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
+              <SheetTrigger asChild>
+                <Button className="bg-primary hover:bg-primary/90 relative">
+                  <Icon name="ShoppingCart" size={20} className="mr-2" />
+                  Корзина
+                  {getTotalItems() > 0 && (
+                    <Badge className="absolute -top-2 -right-2 bg-secondary text-white px-2 py-1">
+                      {getTotalItems()}
+                    </Badge>
+                  )}
+                </Button>
+              </SheetTrigger>
+              <SheetContent className="w-full sm:max-w-lg">
+                <SheetHeader>
+                  <SheetTitle className="text-2xl font-bold text-primary">Корзина</SheetTitle>
+                  <SheetDescription>
+                    {cart.length === 0 ? 'Ваша корзина пуста' : `Товаров в корзине: ${getTotalItems()}`}
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="mt-8 space-y-4 max-h-[60vh] overflow-y-auto">
+                  {cart.map((item) => (
+                    <div key={item.id} className="flex gap-4 p-4 bg-muted rounded-lg">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-20 h-20 object-cover rounded-md"
+                      />
+                      <div className="flex-1">
+                        <h3 className="font-bold text-lg">{item.name}</h3>
+                        <p className="text-muted-foreground">{item.price}</p>
+                        <div className="flex items-center gap-2 mt-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => updateQuantity(item.id, -1)}
+                          >
+                            <Icon name="Minus" size={16} />
+                          </Button>
+                          <span className="font-bold">{item.quantity}</span>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => updateQuantity(item.id, 1)}
+                          >
+                            <Icon name="Plus" size={16} />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            className="ml-auto"
+                            onClick={() => removeFromCart(item.id)}
+                          >
+                            <Icon name="Trash2" size={16} />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {cart.length > 0 && (
+                  <div className="mt-8 space-y-4">
+                    <div className="border-t pt-4">
+                      <div className="flex justify-between text-xl font-bold">
+                        <span>Итого:</span>
+                        <span className="text-primary">{getTotalPrice()}₽</span>
+                      </div>
+                    </div>
+                    <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6">
+                      Оформить заказ
+                    </Button>
+                  </div>
+                )}
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </nav>
@@ -163,7 +299,10 @@ const Index = () => {
                   <p className="text-muted-foreground mb-4 text-sm">{item.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-3xl font-bold">{item.price}</span>
-                    <Button className="bg-primary hover:bg-primary/90">
+                    <Button 
+                      className="bg-primary hover:bg-primary/90"
+                      onClick={() => addToCart(item)}
+                    >
                       <Icon name="Plus" size={20} />
                     </Button>
                   </div>
